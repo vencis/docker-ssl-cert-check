@@ -1,0 +1,16 @@
+version: '3'
+services:
+  ssl-cert-check:
+    container_name: ssl-cert-check
+    build: .
+    environment:
+      - TZ=Europe/Prague
+      - WARNING_DAYS=14
+      - DAILY_TIME=03:00
+    env_file:
+      - .env
+    image: ssl-cert-check
+    restart: unless-stopped
+    volumes:
+      - ./ssl_endpoints_list:/ssl_endpoints_list
+    network_mode: "bridge"
