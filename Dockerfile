@@ -10,7 +10,10 @@ ADD https://raw.githubusercontent.com/Matty9191/ssl-cert-check/master/ssl-cert-c
 COPY files/run.sh /run.sh
 COPY files/mailrc.template /tmp/
 
-RUN sed -i '/^mozilla\/DST_Root_CA_X3/s/^/!/' /etc/ca-certificates.conf && update-ca-certificates -f
+#RUN sed -i '/^mozilla\/DST_Root_CA_X3/s/^/!/' /etc/ca-certificates.conf && update-ca-certificates -f
+ADD https://curl.se/ca/cacert.pem /usr/local/share/ca-certificates/cacert.pem
+RUN update-ca-certificates -f
+
 RUN chmod +x /ssl-cert-check
 RUN chmod +x /run.sh
 
